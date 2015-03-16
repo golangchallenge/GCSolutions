@@ -1,0 +1,66 @@
+package drum
+
+import (
+  "bytes"
+  "testing"
+)
+
+func TestRecognizingHeaderStart(t *testing.T) {
+  //  53 50 4c 49 43 45 00 00  00 00 00 00 00 8f 30 2e  |SPLICE........0.|
+  data := []byte{0x50, 0x4c, 0x49, 0x43, 0x45, 0x00, 0x00, 0x00}
+
+  r := bytes.NewReader(data)
+  reader := &patternReader{r}
+
+  if reader.isLookingAtHeader(0x53) != true {
+    t.Fatal("Didn't recognize it was looking at headers start")
+  }
+}
+
+func TestHasMoreTracks(t *testing.T) {
+  data := []byte{
+    0x00, 0x00, 0x00, 0x00, 0x04, 0x6b, 0x69, 0x63, 0x6b, 0x01, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  }
+
+  r := bytes.NewReader(data)
+  reader := &patternReader{r}
+
+  if reader.hasMorePotentialTracks() != true {
+    t.Fatal("Didn't recognize it did have more interesting data")
+  }
+}
+
+func TestReadsAFullTrack(t *testing.T) {
+  data := []byte{
+    0x01, 0x00, 0x00, 0x00, 0x04, 0x6b, 0x69, 0x63, 0x6b, 0x01, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  }
+
+  r := bytes.NewReader(data)
+  reader := &patternReader{r}
+
+  track, err := reader.readNextTrack()
+
+  if err != nil {
+    t.Fatal("Failed to read in the track", err)
+  }
+
+  if track.Name != "kick" {
+    t.Fatalf("Wrong track name %s", track.Name)
+  }
+
+  if track.ID != 1 {
+    t.Fatalf("Wrong track id %d", track.ID)
+  }
+
+  expectedSteps := []byte{
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  }
+
+  if string(track.Steps[:]) != string(expectedSteps[:]) {
+    t.Fatalf("Wrong tracks steps %#v", track.Steps)
+  }
+}

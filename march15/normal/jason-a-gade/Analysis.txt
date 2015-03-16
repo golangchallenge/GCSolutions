@@ -1,0 +1,11 @@
+00-05 Magic "SPLICE"
+06-0C 0
+0D    unknown byte (checksum?)
+0E-2D Version (ASCII String, 0-term) 32 bytes
+2E-31 Tempo float32
+32-35 TrackID Uint32
+36    TrackNameLen byte
+37    TrackName
+      16 bytes of track data
+
+

@@ -1,0 +1,422 @@
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/nhuerta/drum"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package drum is supposed to implement the decoding of .splice drum machine files.
+See golang-challenge.com/go-challenge1/ for more information
+</p>
+
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="#DecodeTracks">func DecodeTracks(header *Header, rawBytes []byte) (tracks []Track, err error)</a></dd>
+			
+				
+				<dd><a href="#ParseCString">func ParseCString(byteSlice []byte) string</a></dd>
+			
+				
+				<dd><a href="#ParseFloat32LE">func ParseFloat32LE(byteSlice []byte) (float32, error)</a></dd>
+			
+				
+				<dd><a href="#ParseInt32BE">func ParseInt32BE(byteSlice []byte) (int32, error)</a></dd>
+			
+				
+				<dd><a href="#ParseString">func ParseString(byteSlice []byte, length int) string</a></dd>
+			
+				
+				<dd><a href="#ParseTrackPatternAsString">func ParseTrackPatternAsString(trackPatternBytes []byte) string</a></dd>
+			
+				
+				<dd><a href="#ParseUInt8BE">func ParseUInt8BE(byteSlice []byte) (uint8, error)</a></dd>
+			
+				
+				<dd><a href="#PatternToString">func PatternToString(trackPattern *Pattern) string</a></dd>
+			
+			
+				
+				<dd><a href="#Header">type Header</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#DecodeHeader">func DecodeHeader(rawBytes []byte) (header *Header, err error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Pattern">type Pattern</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#DecodeFile">func DecodeFile(path string) (*Pattern, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#DecodeSpliceFileToPattern">func DecodeSpliceFileToPattern(rawBytes []byte) (patternData *Pattern, err error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Track">type Track</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/src/github.com/nhuerta/drum/decoder.go">decoder.go</a>
+			
+				<a href="/src/github.com/nhuerta/drum/drum.go">drum.go</a>
+			
+				<a href="/src/github.com/nhuerta/drum/parser.go">parser.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="DecodeTracks">func <a href="/src/target/decoder.go?s=2270:2348#L65">DecodeTracks</a></h2>
+			<pre>func DecodeTracks(header *<a href="#Header">Header</a>, rawBytes []<a href="/pkg/builtin/#byte">byte</a>) (tracks []<a href="#Track">Track</a>, err <a href="/pkg/builtin/#error">error</a>)</pre>
+			<p>
+DecodeTracks uses the data in header and the input slice rawBytes to genereate the tracks slice.
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseCString">func <a href="/src/target/parser.go?s=1197:1239#L28">ParseCString</a></h2>
+			<pre>func ParseCString(byteSlice []<a href="/pkg/builtin/#byte">byte</a>) <a href="/pkg/builtin/#string">string</a></pre>
+			<p>
+ParseCString reads a byteSlice until the first NUL character and returns a string
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseFloat32LE">func <a href="/src/target/parser.go?s=184:238#L1">ParseFloat32LE</a></h2>
+			<pre>func ParseFloat32LE(byteSlice []<a href="/pkg/builtin/#byte">byte</a>) (<a href="/pkg/builtin/#float32">float32</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+			<p>
+ParseFloat32LE reads a byteSlice and parses the bytes as a 32 bit little endian float and returns a float32
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseInt32BE">func <a href="/src/target/parser.go?s=542:592#L10">ParseInt32BE</a></h2>
+			<pre>func ParseInt32BE(byteSlice []<a href="/pkg/builtin/#byte">byte</a>) (<a href="/pkg/builtin/#int32">int32</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+			<p>
+ParseInt32BE reads a byteSlice and parses the bytes as a 32 bit big endian integer and returns an int32
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseString">func <a href="/src/target/parser.go?s=1444:1497#L35">ParseString</a></h2>
+			<pre>func ParseString(byteSlice []<a href="/pkg/builtin/#byte">byte</a>, length <a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#string">string</a></pre>
+			<p>
+ParseString reads at most length bytes from a byteSlice and returns a string
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseTrackPatternAsString">func <a href="/src/target/parser.go?s=1725:1788#L42">ParseTrackPatternAsString</a></h2>
+			<pre>func ParseTrackPatternAsString(trackPatternBytes []<a href="/pkg/builtin/#byte">byte</a>) <a href="/pkg/builtin/#string">string</a></pre>
+			<p>
+ParseTrackPatternAsString decodes a sequence of bytes representing
+track pattern step data in groups of 4 consecutive bytes
+example output looks like this: |x-x-|x-x-|x-x-|x-x-|
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="ParseUInt8BE">func <a href="/src/target/parser.go?s=891:941#L19">ParseUInt8BE</a></h2>
+			<pre>func ParseUInt8BE(byteSlice []<a href="/pkg/builtin/#byte">byte</a>) (<a href="/pkg/builtin/#uint8">uint8</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+			<p>
+ParseUInt8BE reads a byteSlice and parses the bytes as a 8 bit big endian unsigned integer and returns an uint8
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="PatternToString">func <a href="/src/target/decoder.go?s=3621:3671#L105">PatternToString</a></h2>
+			<pre>func PatternToString(trackPattern *<a href="#Pattern">Pattern</a>) <a href="/pkg/builtin/#string">string</a></pre>
+			<p>
+PatternToString returns a string representing the Pattern trackPattern in the format
+required by decoder_test.go
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Header">type <a href="/src/target/decoder.go?s=454:728#L9">Header</a></h2>
+			<pre>type Header struct {
+    FormatName <a href="/pkg/builtin/#string">string</a>  <span class="comment">// File format name: SPLICE, max string length 10</span>
+    DataSize   <a href="/pkg/builtin/#int32">int32</a>   <span class="comment">// Size of next data chunk containing valid data</span>
+    Version    <a href="/pkg/builtin/#string">string</a>  <span class="comment">// HW Version that created the file, max string length 32</span>
+    Tempo      <a href="/pkg/builtin/#float32">float32</a> <span class="comment">// Tempo value</span>
+}</pre>
+			<p>
+A Header represents the header for a splice file.
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="DecodeHeader">func <a href="/src/target/decoder.go?s=1732:1794#L46">DecodeHeader</a></h3>
+				<pre>func DecodeHeader(rawBytes []<a href="/pkg/builtin/#byte">byte</a>) (header *<a href="#Header">Header</a>, err <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+DecodeHeader decodes data in rawBytes and returns a new Header that
+represents the decoded data file header.
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Pattern">type <a href="/src/target/decoder.go?s=172:399#L2">Pattern</a></h2>
+			<pre>type Pattern struct {
+    Header      <a href="#Header">Header</a>  <span class="comment">// Header for this file</span>
+    Tracks      []<a href="#Track">Track</a> <span class="comment">// Track data slice</span>
+    StringValue <a href="/pkg/builtin/#string">string</a>  <span class="comment">// This is for convenience for embedding the Pattern in text format required by decoder_test.go.</span>
+}</pre>
+			<p>
+Pattern is the high level representation of the
+drum pattern contained in a .splice file.
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="DecodeFile">func <a href="/src/target/decoder.go?s=1227:1273#L27">DecodeFile</a></h3>
+				<pre>func DecodeFile(path <a href="/pkg/builtin/#string">string</a>) (*<a href="#Pattern">Pattern</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+DecodeFile decodes the drum machine file found at the provided path
+and returns a pointer to a parsed pattern which is the entry point to the
+rest of the data.
+</p>
+
+				
+				
+			
+				
+				<h3 id="DecodeSpliceFileToPattern">func <a href="/src/target/decoder.go?s=4375:4456#L125">DecodeSpliceFileToPattern</a></h3>
+				<pre>func DecodeSpliceFileToPattern(rawBytes []<a href="/pkg/builtin/#byte">byte</a>) (patternData *<a href="#Pattern">Pattern</a>, err <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+DecodeSpliceFileToPattern decodes the header and track data for a file and returns patternData, which contains
+the decoded data contained in a splice file represented by rawBytes.
+</p>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="Track">type <a href="/src/target/decoder.go?s=801:1056#L17">Track</a></h2>
+			<pre>type Track struct {
+    Id         <a href="/pkg/builtin/#byte">byte</a>   <span class="comment">// Track id 0-255</span>
+    NameLength <a href="/pkg/builtin/#int32">int32</a>  <span class="comment">// Length of the track name string</span>
+    Name       <a href="/pkg/builtin/#string">string</a> <span class="comment">// Track name string</span>
+    PatternStr <a href="/pkg/builtin/#string">string</a> <span class="comment">// Track pattern as a string: |x-x-|x-x-|x-x-|x-x-| extracted from  a 16 byte slice</span>
+}</pre>
+			<p>
+A Track contains data for a single track contained in a splice file
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	
+	<table class="dir">
+	<tr>
+	<th>Name</th>
+	<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+	<th style="text-align: left; width: auto">Synopsis</th>
+	</tr>
+	
+		<tr>
+		<td><a href="..">..</a></td>
+		</tr>
+	
+	
+		
+			<tr>
+			<td class="name"><a href="fixtures/">fixtures</a></td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td style="width: auto"></td>
+			</tr>
+		
+	
+	</table>
+
+	
+

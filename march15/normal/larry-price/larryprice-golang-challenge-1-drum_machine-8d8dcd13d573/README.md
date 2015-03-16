@@ -1,0 +1,1 @@
+See [http://golang-challenge.com/go-challenge1/](http://golang-challenge.com/go-challenge1/) for details.
