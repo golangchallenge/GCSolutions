@@ -1,0 +1,24 @@
+TestSecureDial will fail every now and then (and almost always with
+GOMAXPROCS>1) because that test starts a goroutine to act as a server,
+which after accepting a connection, starts another goroutine to handle
+the client.
+
+The goroutine handling the connection writes a key to the connection and
+then reads up to 2048 bytes as the message, after which it performs a
+simple comparison and ends, closing the connection.
+
+On the other hand, the client started by Dial tries to do the protocol
+handshake which *writes* the protocol's identifier string and waits to
+receive the server's public key and writes the client's public key.
+
+What frequently happens is that the server closes the connection before
+the client can finish the handshake, which causes the client connection
+to return on error here:
+
+	if _, err := fmt.Fprintf(conn, expected); err != nil {
+		t.Fatal(err)
+	}
+
+The test is not failing because the client is sending the plaintext, but
+because the connection is closed too soon, before the client actually
+sends the cyphertext.

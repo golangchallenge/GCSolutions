@@ -1,0 +1,26 @@
+
+ Notes on Golang challenge #2
+
+	* The nonce is randomly generated and sent by the client to the server.
+	  This is insecure, as it does not prevent replay attacks.
+
+	  However, having the server generate a nonce for the client to use
+	  does not work with the provided tests (TestSecureDial uses a trivial
+	  server that does not send a nonce or even a key.  It just reads data
+	  and expects someting unreadable in return. This means that Dial cannot
+	  wait for a nonce.)
+
+	* Connection setup in NewSecureConnection() generates a keypair and
+	  sends the public key to the peer. To avoid blocking both client
+	  and server when they both try to send their key simultaneously (and
+	  thus never reading), I write the key from a go-routine.
+
+	* Binary protocol:
+
+	  my Write generates a [24]byte nonce, and sends it, along with the
+	  (int16) size of the encrypted packet followed by the encrypted packet
+	  [size]byte.
+
+	* Don't forget that the caller can request less bytes than a full
+	  decypted packet. If this is the case, store the leftover bytes!
+	  For this purpose, my SecureReader struct has an internal field (buf).

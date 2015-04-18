@@ -1,0 +1,1 @@
+There are 2 exploring further bundles. Each is in a directory, and is meant to be used by copying the files into the top level directory (overwriting present files).
