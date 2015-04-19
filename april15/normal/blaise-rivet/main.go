@@ -37,8 +37,8 @@ type SecureReader struct {
 	decryptedBuf *bytes.Buffer // Buffer for unread decrypted bytes
 }
 
-// Read implements the io.Reader interface, allowing seamless
-// decrypted reads.
+// Read implements the io.Reader interface, allowing decrypted reads.
+// It is not safe to call from multiple goroutines concurrently.
 func (sr *SecureReader) Read(p []byte) (int, error) {
 	// check for any unread bytes from previous decryptions
 	if sr.decryptedBuf.Len() > 0 {
@@ -106,10 +106,10 @@ type SecureWriter struct {
 	corruptedStream bool // Sticky error flag
 }
 
-// Write implements the io.Writer interface, allowing seamless
-// encrypted writes.
+// Write implements the io.Writer interface, allowing encrypted writes.
 // Due to encryption overhead, the return value n can be greater than
 // len(p), up to `box.Overhead` more.
+// It is not safe to call from multiple goroutines concurrently.
 //
 // Note: Some errors such as a partial write will corrupt the
 // data stream. Any subsequent calls to Write will return
