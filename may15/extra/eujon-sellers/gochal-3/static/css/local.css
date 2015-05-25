@@ -1,0 +1,140 @@
+#loading-indicator {
+	/*
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 64px;
+	height: 64px;
+	margin-left: -32px;
+	margin-top: -32px;
+	border: 0;
+	 */
+}
+a {
+	text-decoration: none;
+}
+.section {
+	/*width: 96%;
+	margin: 0 auto;*/
+	font-family: 'Roboto', sans-serif;
+	padding: 4rem 0 5rem;
+	text-align: center;
+}
+.section-heading,
+.section-description {
+	margin-bottom: 1.2rem;
+}
+
+.header {
+	color: #7F7F7F;
+	padding-bottom: 5rem;
+}
+
+.about {
+	color: #FFF;
+	background-color: #3B3A35;
+	border-bottom: 1px solid #ddd;
+}
+
+.about-heading {
+	font-weight:bold;
+	color:#999999;
+}
+
+.result {
+	color: #7F7F7F;
+}
+
+.upload {
+	padding: 4rem 0 5rem;
+	color: #3B3A35;
+}
+
+.titleText {
+	color: #000000;
+	font-size: 4em;
+	border-bottom: 1px solid #7F7F7F;
+}
+.arrowSpan {
+	color: #3B3A35;
+	font-size: 2em;
+}
+.alert-success {
+	text-align:center;
+	background-color:#DEF0D8;
+	color:#557051;
+}
+
+.alert-failure {
+	text-align:center;
+	background-color:#F2DEDE;
+	color:#000;
+}
+
+.overlay,
+#overlay-shade {
+	display: none;
+}
+
+#overlay-shade {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background-color: #000;
+}
+
+.overlay {
+	position: absolute;
+	top: -300px;
+	left: 0;
+	/*    width: 128px;
+	height: 128px;*/
+	width: 64px;
+	height: 64px;
+	margin-left: -32px;
+	margin-top: -32px;
+
+	z-index: 10000;
+	/*	background-color: #fff;*/
+	/*border: 10px solid #CFCFCF;*/
+	color: #fff;
+	/*box-shadow: 0 0 16px #000;*/
+} .ie7 .overlay {
+	height: 64px;
+} .overlay .wrapper {
+	/*padding: 15px 30px 30px;*/
+}
+
+/*
+.overlay .toolbar {
+padding: 8px;
+line-height: 1;
+text-align: right;
+overflow: hidden;
+} .overlay .toolbar a.close {
+display: inline-block;
+ *display: inline;
+ zoom: 1;
+ padding: 0 8px;
+ font-size: 12px;
+ text-decoration: none;
+ font-weight: bold;
+ line-height: 18px;
+ border-radius: 5px;
+ -webkit-border-radius: 5px;
+ -moz-border-radius: 5px;
+ -o-border-radius: 5px;
+ color: #999999;
+ background-color: #515151;
+ } .overlay .toolbar a.close span {
+	 color: #818181;
+ } .overlay .toolbar a.close:hover,
+ .overlay .toolbar a.close:hover span {
+	 background-color: #b90900;
+	 color: #fff;
+ }
+ */
+

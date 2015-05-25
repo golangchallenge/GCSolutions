@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>{{ .Title }}</title>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" href="/css/normalize.css">
+		<link rel="stylesheet" href="/css/skeleton.css">
+		<link rel="stylesheet" href="/css/local.css">
+
+	</head>
+	<body>
+		<div class="section header">
+			<div class="container">
+				<div class="row">
+					<div class="12 column">
+						<span class="titleText"><b><span style="color:#ED1C24">[</span><span style="color:#7F7F7F"> Mo <span style="color:#ED1C24;">]</span></span></b> the Photo Mosaic Builder</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section result">
+			<div class="container">
+				<p>
+				<a href="/created/{{ .ImageName }}" style="border:0" target="#"><img src="/created/{{ .ImageName }}" class="moimg" id="moimg" ></a><br>
+				(click to see full-size version)
+				</p>
+				<p>
+				Share this with your friends using the link below:<br>
+				<input style="text-align:center;font-weight:bold;" size="90" type="url" value="http://mosaic.esheavyindustries.com/d/{{ .ImageName }}" />
+				</p>
+			</div>
+		</div>
+
+		<div class="share">
+			<!-- share link here -->
+		</div>
+		<script>
+			$(window).load(function() {
+				$('.container img').each(function() {
+					var maxWidth = 600; // Max width for the image
+					var maxHeight = 600;    // Max height for the image
+					var ratio = 0;  // Used for aspect ratio
+					var width = $(this).width();    // Current image width
+					var height = $(this).height();  // Current image height
+
+					// Check if the current width is larger than the max
+					if(width > maxWidth){
+						ratio = maxWidth / width;   // get ratio for scaling image
+						$(this).css("width", maxWidth); // Set new width
+						$(this).css("height", height * ratio);  // Scale height based on ratio
+						height = height * ratio;    // Reset height to match scaled image
+					}
+					var width = $(this).width();    // Current image width
+					var height = $(this).height();  // Current image height
+
+					// Check if current height is larger than max
+					if(height > maxHeight){
+						ratio = maxHeight / height; // get ratio for scaling image
+						$(this).css("height", maxHeight);   // Set new height
+						$(this).css("width", width * ratio);    // Scale width based on ratio
+						width = width * ratio;    // Reset width to match scaled image
+					}
+				});
+			});
+		</script>
+		
+	</body>
+</html>

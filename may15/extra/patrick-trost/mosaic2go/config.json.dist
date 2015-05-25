@@ -1,0 +1,14 @@
+{
+    "PORT": "8080",
+    "memcached_server": "127.0.0.1:11211",
+    "memcached_username": "",
+    "memcached_password": "",
+    "s3_region": "eu-west-1",
+    "s3_images_bucket": "images.mosaic2go.com",
+    "s3_images_bucket_test": "test-images.mosaic2go.com",
+    "session_expire": "1800",
+    "max_upload_file_size": "5242880"
+    "flickr_key": "",
+    "flickr_secret_key": "",
+    "tmp_dir": "tmp"
+}

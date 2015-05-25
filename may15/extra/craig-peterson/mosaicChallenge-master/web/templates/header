@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/bootstrap.js"></script>
+
+		<title>Mosaics</title>
+	</head>
+	<body>
+ 		 	<div id="main" class="container clear-top">
+ 				<div class='row'>
+					<div class='col-md-8'><h1>Mosaics <small>- by <a href="https://github.com/captncraig">Craig Peterson</a></small></h1></td></div>
+					<div class='col-md-2 col-md-offset-2' style='margin-top:40px;text-align: right;'>
+						{{if .Token}}
+							{{.Token.AccountUsername}} <a href='/logout'>Log out</a>
+						{{else}}
+							<a href="/login">Login with imgur</a>
+						{{end}}
+					</div>
+				</div>
+				<hr>
+			

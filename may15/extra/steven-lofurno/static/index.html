@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+  </head>
+  <body>
+
+<!---- <canvas id="myCanvas" width="300" height="200" style="width:600px;height:auto;background-color:ghostwhite"></canvas> ---->
+<div style="min-width:300px;min-height:200px;background-color:ghostwhite;">
+<IMG id="myCanvas" style="width:auto;height:200px;background-color:ghostwhite"/><br>
+<span id="directlink"></span>
+</div>
+ <br>
+ <div style="display:inline-block;vertical-align:top;margin-right:20px;">
+
+ <div id="status">Select an image and enter up to 3 tile tags</div>
+<ul>
+<li>left click mosaic to zoom-in</li>
+<li>ctrl+left click to zoom-out</li>
+</ul>
+
+  <div style="background-color:ghostwhite;display:inline-block;padding:20px">
+
+    <p>mosaic tile search filters</p>
+   <input class="tagname" type="text" placeholder="kitten"><br>
+   <input class="tagname" type="text" placeholder="corvette"><br>
+   <input class="tagname" type="text" placeholder="mountain"><br>
+   <br>  
+
+    <input type="file" id="imageinput"><br>
+   
+    <input type="button" role="button" value="submit" onclick="handleFiles()"><br>
+    <input id="savemosaic" type="checkbox">save my mosaic and make it public
+    
+</div>
+
+</div>
+<div id="publicmosaics" style="width:640px;min-height:100px;background-color:ghostwhite;display:inline-block;padding:20px;vertical-align:top;">
+
+</div>
+
+<br>
+
+
+  <script>
+
+  var curheight = 200;
+
+  document.getElementById("myCanvas").addEventListener("mousedown",function(e){
+
+    if (e.button!==0){
+      return;
+    }
+
+    if (!e.ctrlKey){
+      curheight+=200;
+    }else if(curheight>200){
+      curheight-=200;
+    }
+
+    document.getElementById('myCanvas').style.height = curheight + 'px';
+
+  });
+
+
+
+  function setStatus(text){
+    document.getElementById("status").innerHTML=text;
+  }
+
+  function loadCanvas(image, width, height) {
+    var canvas = document.getElementById('myCanvas');
+    canvas.width=width;
+    canvas.height=height;
+    var context = canvas.getContext('2d');
+
+    context.drawImage(image, 0, 0); 
+}
+
+  function listen(key){
+    var evtSource = new EventSource("listen?key="+key);
+    evtSource.onerror=function(e){
+      evtSource.close();     
+    }
+   
+    evtSource.addEventListener("progress", function(e) {     
+      setStatus(e.data);
+     
+    }, false);
+
+
+    evtSource.addEventListener("image", function(e) {
+      var blob = new Blob([e.data], {type: 'image/jpg'});
+      var url = URL.createObjectURL(blob);
+      document.getElementById("directlink").innerHTML= window.location.href + "images/" + key + ".jpg";  
+
+      document.getElementById("myCanvas").src='data:image/jpeg;base64,'+JSON.parse(e.data);
+      evtSource.close();
+      return;
+      var result = JSON.parse(e.data);
+      var height = result.height;
+      var width=result.width;
+      var base64 = result.base64;
+
+      var img = new Image();   
+      img.src = 'data:image/png;base64,'+base64;
+
+      evtSource.close();
+
+      loadCanvas(img, width, height);
+
+    }, false);
+
+  }
+
+    function handleFiles() {
+
+      var t = document.getElementsByClassName("tagname");
+      var savemosaic = document.getElementById("savemosaic")
+
+      var tags = [].slice.call(t).map(function(tag){
+        return tag.value;
+      }).filter(function(val){
+        return val.length>0;
+      });
+
+      console.log(tags);
+
+      if (tags.length==0) {
+        setStatus("please enter at least one tag");
+        return;
+      }
+
+      var terms = tags.reduce(function(cur,next,indx){
+        if (indx){
+          cur+="&";
+        }
+        return cur+"terms=" + next;
+      },"?");
+
+      terms+="&save="+savemosaic.checked.toString();
+
+      var el = document.getElementById("imageinput");
+      var files = el.files;
+      reader = new FileReader();
+
+      reader.onload = function (e) {
+        var buffer = e.target.result;
+        var dv = new Int8Array(buffer, 0);
+        var xhr = new XMLHttpRequest;
+
+        xhr.open("POST", "/postimage"+terms, true);
+        xhr.onload = function () {
+          listen(this.response) 
+        };
+        xhr.send(dv);
+      };     
+      reader.readAsArrayBuffer(files[0]);
+    }
+
+    var publicmosaics = document.getElementById("publicmosaics");
+
+    function getMosaics() {
+      var xhr =new XMLHttpRequest;
+      xhr.open("GET","/api/images");
+      xhr.onload=function(){
+
+        var m = JSON.parse(this.response)
+
+        m.forEach(function(url){
+
+          var el = document.createElement("img");
+          el.src="thumbs/"+url;
+
+          var link = document.createElement("a");
+          link.href="images/"+url;
+          link.appendChild(el);
+
+          var div = document.createElement("div");
+          div.appendChild(link);
+          publicmosaics.appendChild(div);
+          div.style.display="inline-block";
+          div.style.margin="10px";
+                  
+
+        });
+
+        console.log(m)
+      }
+      xhr.send();
+    }
+
+    getMosaics();
+
+
+  </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<script>
+	var lastKnown = -1;
+	var lastStatus = "";
+	var lastSub = "";
+	function poll(){
+		$.get("/status?id={{.Id}}&last="+lastKnown,function (data){
+			console.log(data);
+			if (data.Error){
+				$("#error").text(data.Error);
+			}
+			if (data.Status && data.Status != lastStatus){
+				$("#status").append("<h3>"+data.Status+"</h3>");
+				lastStatus = data.Status;
+				lastSub = "";
+			}
+			if (data.Substatus && data.Substatus != lastSub){
+				$("#status").append("<p>"+data.Substatus+"</p>")
+			}
+			if (data.Version){
+				lastKnown = data.Version;
+			}
+		})
+		.fail(function(data,x,y){
+			console.log("ERR",data,x,y)
+		})
+		.always(function(){
+			setTimeout(poll,500);
+		})
+	}
+	setTimeout(poll,500)
+</script>
+<div id='status'></div>

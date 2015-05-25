@@ -1,0 +1,66 @@
+{{define "title"}}UPLOAD IMAGE{{end}}
+
+{{define "body"}}
+
+<form name="input-form" class="input-form"  enctype="multipart/form-data" action="/upload" method="post">
+	
+		<div class="header">
+			<h3>Select Image file for creating Mossaic.</h3>
+		</div>
+		
+		<div class="content col-xs-12">
+			<label class="input-label col-xs-3 label-info">
+				<strong> Search Flick for : </strong>
+			</label>
+			<div class="input-append  col-xs-4 nopadding">				
+				 <input class="input-medium input " type="text" id="searchtextId" name="searchtext" required="true">
+			</div>			
+		</div>	
+
+				
+		<div class="content col-xs-12">
+			<label class="input-label col-xs-3 label-info">
+				<strong>Choose Image : </strong>
+			</label>
+			<input class="input-medium input"  type="file" id="fileId"  accept="image/*" name="file" required="true"/> 
+	    </div>	
+		
+		<div class="content col-xs-12">
+			<div class="row">
+				<div class="content col-xs-3">
+		 			<label class="input-label label-info" for="TileSize" style="width:100%;margin-left:12px">				
+						<strong>Tile Size : </strong>
+					</label>
+				</div>
+				<div class="content col-xs-4">
+					<div  id="slider-range-max" style="margin-left: 5px;margin-top: 8px" ></div>
+				</div>
+				<div class="content col-xs-4" style="margin-top: 5px;">
+					 <input type="text" id="TileSize"  name="SelectedTileSize" readonly style="border:0; background: #f3f3f3; color:#f6931f; font-weight:bold;"/>
+				</div>
+			</div>
+		</div>	
+		
+
+    	<div class="footer">
+			<input class="button" id="uploadBtn" value="UPLOAD" type="submit"  >		  
+		</div>	
+</form>
+
+<style>
+	#ex1Slider .slider-selection {
+		background: #BABABA;
+	}
+</style>
+
+<script type="text/javascript">
+	$( "#fileId" ).change(function() {
+		var ext = $('#fileId').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+			$( "#fileId" ).val(""); 
+		    alert("Please select image file only.!");
+		}
+	});
+</script>
+
+{{end}}

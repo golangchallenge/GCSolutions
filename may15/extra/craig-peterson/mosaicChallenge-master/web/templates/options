@@ -1,0 +1,81 @@
+<style>
+	.collectionPanel{
+		height:400px;
+		width: 300px;
+		float: left;
+		border: 1px solid black;
+		text-align: center;
+		margin: 5px;
+		-webkit-touch-callout: none;
+    	-webkit-user-select: none;
+    	-khtml-user-select: none;
+   	 	-moz-user-select: none;
+    	-ms-user-select: none;
+    	user-select: none;
+		cursor: pointer; cursor: hand;
+	}
+	.collectionPanel.selected{
+		background-color: blue;
+	}
+	.i.selected{
+		border: 3px solid blue;
+	}
+	.colTitle{
+		font-size: 200%;
+	}
+	.colDesc{
+		height: 50px;
+	}
+</style>
+<div class='row'>
+	<h2>1. Select your template image:</h2>
+</div>
+<div class='row'>
+<input type='text' id='target' class="form-control input-lg" value='{{index .Imgs 0}}' ></input>
+</div>
+<div class='row'>
+{{range .Imgs}}<img class='i' src="{{.}}" height='200'/>{{end}}
+</div>
+<hr/>
+<div class='row'>
+	<h2>2. Select your tile library:</h2>
+</div>
+<div class='row'>
+	<h3> Use one of mine:</h3>
+</div>
+<ul>
+<div class='row'>
+{{range $key, $value := .Collections}}
+	<div class='collectionPanel {{if eq $key "all"}}selected{{end}}' id='{{$key}}' onclick='select("{{$key}}")'>
+		<div class='colTitle'>{{$key}}</div>
+		<div class='colDesc'>{{$value.Desc}}</div>
+		{{range $value.GetSampleImages}} <img {{.}}></img> {{end}}
+		{{$value.Count}} images
+	</div>
+{{end}}
+</div>
+<div class='row' style='height:10px;clear:both;'></div>
+</ul>
+<hr/>
+<button type="button" class="btn btn-primary" onclick="go()" sytle='margin-bottom:50px;'>Build mosaic!</button>
+<hr/>
+<script>
+	var selected = "all";
+	$(function(){
+		$(".i").first().addClass("selected");
+		$(".i").click(function(){
+			$(".i").removeClass("selected");
+			$(this).addClass("selected");
+			$("#target").val($(this).attr('src'));
+		});
+	})
+	function select(name){
+		$("#"+selected).removeClass('selected');
+		selected = name;
+		$("#"+selected).addClass('selected');
+	}
+	function go(){
+		var url = '/submit?img=' + encodeURIComponent($('#target').val()) + '&lib=' + selected;
+		window.location.href = url;
+	}
+</script>

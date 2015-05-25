@@ -1,0 +1,55 @@
+{{define "title"}}VIEW IMAGE{{end}}
+
+{{define "body"}}
+
+<form name="image-form"  class="input-form" id="image-form" action="/mossaic" method="post">
+	
+		<div class="header">
+		<h3>Image</h3>
+		</div>
+	
+		<div style="margin-left:50px">
+			
+			 <div class="row" >
+	       			<div class="col-md-6 center-block">
+			     		<img src="{{.Src}}" alt="..." width="500" height="500">
+					</div>
+  			 </div>
+		
+	
+			<input type="hidden" id ="PUID" name="PUID" value={{.PUID}}>
+			<input type="hidden" name="TileSize" value={{.TileSize}}>
+			<input type="hidden" name="ImageName" value={{.ImageName}}>
+			<input type="hidden" id ="Redirected" name="Redirected" value={{.Redirected}}>
+
+		</div>
+		
+		<div id="footerId" class="footer">
+			<div class="row" >
+			    <div class="col-md-6">
+					<input class="button pull-left" value="HOME" id="HOME" type="button" >
+				</div>
+				<div class="col-md-6">
+					<input class="button pull-right" id="submit" value="PROCESS" type="submit" >
+				</div>
+			</div>	
+ 		</div>
+</form>
+
+<script type="text/javascript">
+
+   $(function(){
+		if($("#Redirected").val()){
+			$('#submit').hide();
+		}
+
+  		$("#HOME").click(function(){
+            $("#image-form").attr("action", "/input");
+			$( "#submit" ).click();
+    	})
+	})
+
+
+
+</script>
+{{end}}

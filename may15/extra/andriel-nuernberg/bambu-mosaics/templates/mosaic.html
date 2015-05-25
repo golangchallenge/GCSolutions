@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bambu :: Mosaic Generator</title>
+
+    <link rel="stylesheet" href="/assets/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/assets/stylesheets/base.css">
+  </head>
+  <body>
+    <div class="mini-logo">
+      <a href="/" title="Home page">
+        <img src="/assets/images/bambu-mosaics.png" alt="Bambu Mosaics">
+      </a>
+    </div>
+
+    <div class="generated-mosaic">
+      <img src="/mosaics/{{.}}.jpg" alt="">
+    </div>
+
+    <footer class="footer">
+      <p>
+        Developed by
+        <a href="http://andrielfn.com" title="Andriel Nuernberg">Andriel Nuernberg</a>
+        for the
+        <a href="http://golang-challenge.com/go-challenge3/" title="Third Go Challenge">third Go Challenge</a>.
+      </p>
+    </footer>
+
+    <script src="/assets/javascripts/jquery.js"></script>
+    <script src="/assets/javascripts/application.js"></script>
+    <script>
+      new app.Uploader($('.mosaic-form'));
+    </script>
+  </body>
+</html>

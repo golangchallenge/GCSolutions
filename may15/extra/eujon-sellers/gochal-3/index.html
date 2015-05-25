@@ -1,0 +1,154 @@
+<html>
+	<head>
+		<title>{{ .Title }}</title>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" href="/css/normalize.css">
+		<link rel="stylesheet" href="/css/skeleton.css">
+		<link rel="stylesheet" href="/css/local.css">
+
+	</head>
+	<body>
+		<div class="section header">
+			<div class="container">
+				<div class="row">
+					<div class="12 column">
+						<span class="titleText"><b><span style="color:#ED1C24">[</span><span style="color:#7F7F7F"> Mo <span style="color:#ED1C24;">]</span></span></b> the Photo Mosaic Builder</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="12 column">
+						<img class="u-max-full-width" src="/images/header.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section about">
+			<div class="container">
+				<h3 class="about-heading" >What is Mo?</h3>
+				<p class="section-description">
+					Mo was designed as an entry for the third <a href="http://golang-challenge.com/go-challenge3/" target="#">Go Challenge</a> with the challenge being to create a "photo-mosaic generating web application". As specified in the challenge, Mo has been written 100% in Go (aside from the HTML) using only the Go standard libraries. It currently uses Flickr as it's image source for creating the mosaic tiles.
+				</p>
+				<p>
+					Mo is super easy to use! Simply select a local file you'd like to turn into a photo-mosaic using the form below and click "create". The creation process can take a minute or two so please just hang out while Mo does its thing. Once the photo-mosaic is complete it will be displayed and you'll get a link that you can share with others so they can see your new work of art :)
+				</p>
+			</div>
+		</div>
+
+		<div class="upload">
+			<div class="container">
+				<div class="row">
+					<div class="one-half column offset-by-three columns">
+						<img src="/images/loader.gif" id="loading-indicator" class="overlay" />
+						<center>
+							<h3 class="section-heading">Let Mo create your mosaic</h3>
+						</center>
+						<p >
+							<h5>Things to be aware of:</h5>
+							<ul >
+								<li>Mosaic creation can take up to <b>5 minutes</b>, please be patient</li>
+								<li>Using a search term for your images will increase the creation time</li>
+								<li>Mo will do its best to use images only from your search (if you use one). However if Mo cannot find enough pictures in your search it will fall back to random pictures to make up the difference</li>
+							</ul>
+						</p>
+					</div>
+				</div>
+				<form name="my-form" id="my-form">
+					<div class="row" >
+						<div class="one-half column offset-by-three columns">
+							<label for="file" class="label-body" >Image:</label>
+							<input type="file" name="file" />
+							<label for="searchTerms" class="label-body" >Image Search Terms:</label>
+							<input class="u-full-width" type="text" name="searchTerms" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="one-half column offset-by-three columns">
+							<center>
+								<button type="submit" class="button-primary" id="submitBtn">Create!</button>
+							</center>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script>
+			function openOverlay(olEl) {
+				$oLay = $(olEl);
+
+				if ($('#overlay-shade').length == 0)
+					$('body').prepend('<div id="overlay-shade"></div>');
+
+				$('#overlay-shade').fadeTo(300, 0.6, function() {
+					var props = {
+						oLayWidth       : $oLay.width(),
+					scrTop          : $(window).scrollTop(),
+					viewPortWidth   : $(window).width()
+					};
+
+					var leftPos = (props.viewPortWidth - props.oLayWidth) / 2;
+
+					$oLay
+					.css({
+						display : 'block',
+						opacity : 0,
+						top : '-=300',
+						//left : leftPos+'px'
+						left: '50%'
+					})
+				.animate({
+					top : 40,
+					opacity : 1
+				}, 600);
+				});
+			}
+		</script>
+		<script>
+			function closeOverlay(olEl) {
+				$oLay = $(olEl);
+				$('.overlay').animate({
+					top : '-=300',
+					opacity : 0
+				}, 400, function() {
+					$('#overlay-shade').fadeOut(300);
+					$oLay.css('display','none');
+				});
+			}
+		</script>
+		<script>
+			$(document).bind("ajaxSend", function(){
+				//$('#submitBtn').attr("disabled", "disabled");
+				openOverlay('#loading-indicator');
+			}).bind("ajaxComplete", function(){
+				$("#loading-indicator").hide();
+				//$('#submitBtn').attr("enabled", "enabled");
+				closeOverlay('#loading-indicator')
+			});
+		</script>
+		<script>
+			$( '#my-form' )
+			.submit( function( e ) {
+				$.ajax( {
+					url: '/bm',
+					type: 'POST',
+					data: new FormData( this ),
+					processData: false,
+					contentType: false,
+					dataType    : 'json'
+				} )
+				.done(function(data) {
+					if ( ! data.Success) {
+					$('#my-form').append('<div class="alert-failure">' + data.Name + '</div>');
+					} else {
+						window.location="/d/"+data.Name;
+					}
+				});
+				e.preventDefault();
+			} );
+
+		</script>
+	</body>
+</html>

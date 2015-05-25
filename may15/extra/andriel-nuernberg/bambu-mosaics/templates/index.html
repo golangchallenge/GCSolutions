@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bambu :: Mosaic Generator</title>
+
+    <link rel="stylesheet" href="/assets/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/assets/stylesheets/base.css">
+  </head>
+  <body>
+    <div class="logo">
+      <img src="/assets/images/bambu-mosaics.png" alt="Bambu Mosaics">
+    </div>
+
+    <p class="presentation-text">
+      Generate mosaics directly from the Instagram Library.<br>
+      Zero effort. Unlimited happiness.
+    </p>
+
+    {{if eq . "unknown-format"}}
+      <div class="error-message">
+        The chosen format is not supported. Please select a JPG or PNG file.
+      </div>
+    {{ else if eq . "failed" }}
+      <div class="error-message">
+        Failed to generate the mosaic. Please try again.
+      </div>
+    {{ end }}
+
+    <form action="/m" method="post" class="mosaic-form" enctype="multipart/form-data">
+      <label class="file-label">
+        Choose an image
+        <input type="file" name="file" />
+      </label>
+    </form>
+
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+
+    <footer class="footer">
+      <p>
+        Developed by
+        <a href="http://andrielfn.com" title="Andriel Nuernberg">Andriel Nuernberg</a>
+        for the
+        <a href="http://golang-challenge.com/go-challenge3/" title="Third Go Challenge">third Go Challenge</a>.
+      </p>
+    </footer>
+
+    <script src="/assets/javascripts/jquery.js"></script>
+    <script src="/assets/javascripts/application.js"></script>
+    <script>
+      new app.Uploader($('.mosaic-form'), $('.spinner'));
+    </script>
+  </body>
+</html>

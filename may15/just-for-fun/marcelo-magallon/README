@@ -1,0 +1,66 @@
+Mosaic generator
+================
+
+This program will generate a mosaic of a provided photo (-photo), either
+by searching for images on Flickr (-query) or reading them from the
+local filesystem (-dir).
+
+It divides the input image into tiles of the indicated size (-tilesize),
+and tries to match all the available images to each of these tiles by
+computing the squared distance in RGB space between the tile in the
+original picture and the tile image. Once the best matches have been
+selected, an output image is created using tiles of the indicated output
+size (-outtilesize). In general the output tile size is larger than the
+matching tile size, and therefore the output image is
+outtilesize/tilesize times larger than the input one (along each axis).
+This is done because a mosaic becomes interesting when you can recognize
+the original picture while at the same time being able to see some
+detail in the individual tails composing the mosaic.
+
+Flickr
+------
+
+If you want to use the Flickr query function, you need to provide a
+configuration file called "config.json" that looks like this:
+
+{
+	"FlickrApi" : {
+		"Key" : "your API key",
+		"Secret" : "your secret"
+	}
+}
+
+The reason why this isn't available on the command line is because I'd
+like to provide support for other services eventually (and originally
+this was intented to work form a web service, not from the command
+line).
+
+Limitations
+-----------
+
+* Tiles are square. There's nothing inherent in the code that requires
+  this, but they are.
+
+* Because of the above, images used for the tiles should be cropped, by
+  in the current implementation they are not, an image of 640x480 will
+  be mercilessly scaled down to, say, 16x16 pixels, becoming distorted
+  in the process.
+
+* No attempt is made to limit the amount of memory used. For example, if
+  you run with -tilesize=1 and -outtilesize=75, the output image will
+  have 75*75 = 5625 times more pixels. This means that a regular 4
+  MegaPixel image becomes a 21 GigaPixel one, appropriate for large
+  format printing. If you have the memory, knock yourself out. Because
+  of the way the program works, I'm guessing that would require over 128
+  GB of RAM. Obviously this goes down if you set -tilesize to a larger
+  value. For example -tilesize=16 and -outtilesize=75 outputs an image
+  with 18 MP.
+
+Trivia
+------
+
+Why 75x75? Because that's the size of Flickr's "small" images. In the
+Flickr path, the program does not retrieve the larger formats because
+that doesn't make sense (see last point above about memory
+requirements). Instead it is happy with retrieving the already-scaled
+down images, and since Flickr already provides this particular size...
