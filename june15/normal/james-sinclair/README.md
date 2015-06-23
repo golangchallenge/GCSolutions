@@ -1,0 +1,5 @@
+I started out with GC3, but the bar was a bit too high and I got discouraged before I could finish the challenge. This time I was determined to finish! And I did. I really enjoyed the challenge so kudos to the author. There are definitely a huge number of ways to solve this, and I went down a few dark, dangerous alleys before landing on the relatively simple solution used in my code. Basically, it unloads a truck to inventory all the boxes then iterates over pallets grabbing the largest box in storage and trying to fit it only the pallet. When the pallet is either full or all box sizes in storage have been tried, it loads the pallet back onto the truck.
+
+I know it's not the most efficient solution -- there's no shared box storage so trucks only get repacked with the boxes they came in with -- but my testing shows profit averages about 2.6 pallets/truck, so it seems like something the truck repacking industry would see as "good enough".
+
+Anyway, it works. There are tests. It passes `go fmt/vet/lint`. There's not much documentation, though. Ran out of time for that. Hopefully it still works when you try to run it. :)

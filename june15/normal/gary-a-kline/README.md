@@ -1,0 +1,1 @@
+I built and tested a solution that processed trucks in parallel, but it has worse performance on a 4-core PC than the simpler solution I'm submitting.  I suspect that the cores are already busy with 1) the process that feeds the 'in' channel, 2) the repacker, 3) the process that consumes the 'out' channel, and 4) the Go runtime.
