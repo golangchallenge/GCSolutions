@@ -1,0 +1,5 @@
+This package is the source for my high level test of unexport.
+
+On running tests, the `testpkgTpl` directory is copied to `testPkg`, and tests are run on it.
+
+Any changes made to `testPkg` directly will be overwritten. Any modifications should be made in `testpkgTpl`

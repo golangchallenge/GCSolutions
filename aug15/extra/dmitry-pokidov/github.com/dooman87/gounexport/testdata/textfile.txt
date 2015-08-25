@@ -1,0 +1,1 @@
+We wanna ignore all non-source files
