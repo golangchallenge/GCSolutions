@@ -1,7 +1,7 @@
 package models
 
 import (
-	"bitbucket.org/jcscottiii/amadeus/util"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/util"
 	"golang.org/x/mobile/event/size"
 	"golang.org/x/mobile/exp/f32"
 	"golang.org/x/mobile/gl"

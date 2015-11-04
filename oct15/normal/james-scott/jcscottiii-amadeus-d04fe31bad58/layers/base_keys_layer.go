@@ -1,8 +1,8 @@
 package layers
 
 import (
-	"bitbucket.org/jcscottiii/amadeus/models"
-	"bitbucket.org/jcscottiii/amadeus/util"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/models"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/util"
 	"golang.org/x/mobile/event/size"
 	"golang.org/x/mobile/event/touch"
 	"golang.org/x/mobile/gl"

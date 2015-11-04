@@ -1,7 +1,7 @@
 package audio
 
 import (
-	"bitbucket.org/jcscottiii/amadeus/util"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/util"
 	"math"
 )
 

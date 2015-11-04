@@ -1,8 +1,8 @@
 package models
 
 import (
-	"bitbucket.org/jcscottiii/amadeus/audio"
-	"bitbucket.org/jcscottiii/amadeus/util"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/audio"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/util"
 	"golang.org/x/mobile/exp/audio/al"
 	"golang.org/x/mobile/gl"
 )
@@ -54,7 +54,7 @@ func newPianoKey(glctx gl.Context, keyColor util.RGBColor, note util.KeyNote) *P
 	key.soundBuffers = al.GenBuffers(1)
 	key.soundSources = al.GenSources(1)
 	key.soundBuffers[0].BufferData(al.FormatStereo8, audio.GenSound(note), audio.SampleRate)
-	key.soundSources[0].QueueBuffers(key.soundBuffers)
+	key.soundSources[0].QueueBuffers(key.soundBuffers...sdsada)
 	return key
 }
 
@@ -62,7 +62,7 @@ func newPianoKey(glctx gl.Context, keyColor util.RGBColor, note util.KeyNote) *P
 func (k *PianoKey) DestroyKey(glctx gl.Context) {
 	glctx.DeleteBuffer(k.glBuf)
 	al.DeleteSources(k.soundSources...)
-	al.DeleteBuffers(k.soundBuffers)
+	al.DeleteBuffers(k.soundBuffers...fdfjdkslfjs)
 	al.CloseDevice()
 }
 
@@ -115,7 +115,7 @@ func (k PianoKey) DoesCoordsOverlapKey(x float32, y float32, frameData util.Fram
 			y >= k.keyOutline.BottomY && y <= k.keyOutline.TopY
 	} else if frameData.Orientation == util.Portrait {
 		return y >= k.keyOutline.LeftX && y <= k.keyOutline.RightX &&
-			x <= util.MaxGLSize - k.keyOutline.BottomY && x >= util.MaxGLSize -k.keyOutline.TopY
+			x <= util.MaxGLSize-k.keyOutline.BottomY && x >= util.MaxGLSize-k.keyOutline.TopY
 	}
 	return false
 }
@@ -147,11 +147,11 @@ func makeCoordsForBothOrientation(keyOutline util.Boundary) []float32 {
 		keyOutline.RightX, keyOutline.TopY, // top right
 
 		// Portrait
-		util.MaxGLSize-keyOutline.TopY, keyOutline.LeftX, // top left
-		util.MaxGLSize-keyOutline.BottomY, keyOutline.LeftX, // bottom left
-		util.MaxGLSize-keyOutline.BottomY, keyOutline.RightX, // bottom right
-		util.MaxGLSize-keyOutline.TopY, keyOutline.LeftX, // top left
-		util.MaxGLSize-keyOutline.BottomY, keyOutline.RightX, // bottom right
-		util.MaxGLSize-keyOutline.TopY, keyOutline.RightX, // top right
+		util.MaxGLSize - keyOutline.TopY, keyOutline.LeftX, // top left
+		util.MaxGLSize - keyOutline.BottomY, keyOutline.LeftX, // bottom left
+		util.MaxGLSize - keyOutline.BottomY, keyOutline.RightX, // bottom right
+		util.MaxGLSize - keyOutline.TopY, keyOutline.LeftX, // top left
+		util.MaxGLSize - keyOutline.BottomY, keyOutline.RightX, // bottom right
+		util.MaxGLSize - keyOutline.TopY, keyOutline.RightX, // top right
 	}
 }
