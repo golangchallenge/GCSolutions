@@ -54,7 +54,7 @@ func newPianoKey(glctx gl.Context, keyColor util.RGBColor, note util.KeyNote) *P
 	key.soundBuffers = al.GenBuffers(1)
 	key.soundSources = al.GenSources(1)
 	key.soundBuffers[0].BufferData(al.FormatStereo8, audio.GenSound(note), audio.SampleRate)
-	key.soundSources[0].QueueBuffers(key.soundBuffers...sdsada)
+	key.soundSources[0].QueueBuffers(key.soundBuffers...)
 	return key
 }
 
@@ -62,7 +62,7 @@ func newPianoKey(glctx gl.Context, keyColor util.RGBColor, note util.KeyNote) *P
 func (k *PianoKey) DestroyKey(glctx gl.Context) {
 	glctx.DeleteBuffer(k.glBuf)
 	al.DeleteSources(k.soundSources...)
-	al.DeleteBuffers(k.soundBuffers...fdfjdkslfjs)
+	al.DeleteBuffers(k.soundBuffers...)
 	al.CloseDevice()
 }
 
