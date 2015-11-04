@@ -136,10 +136,10 @@ func (k *PianoKey) Press(f int) {
 	bp := k.source.BuffersProcessed()
 	if bp > 0 {
 		b := make([]al.Buffer, bp)
-		k.source.UnqueueBuffers(b)
+		k.source.UnqueueBuffers(b...)
 	}
 	if k.source.BuffersQueued() == 0 {
-		k.source.QueueBuffers([]al.Buffer{k.buffers[0]})
+		k.source.QueueBuffers(k.buffers[0])
 		al.PlaySources(k.source)
 	}
 }
@@ -154,10 +154,10 @@ func (k *PianoKey) Hold() {
 	bp := k.source.BuffersProcessed()
 	if bp > 0 {
 		b := make([]al.Buffer, bp)
-		k.source.UnqueueBuffers(b)
+		k.source.UnqueueBuffers(b...)
 	}
 	if k.source.BuffersQueued() < 2 {
-		k.source.QueueBuffers([]al.Buffer{k.buffers[0]})
+		k.source.QueueBuffers(k.buffers[0])
 	}
 }
 
