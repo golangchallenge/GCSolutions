@@ -103,8 +103,8 @@ func (c *Context) Play() {
 	if n > 0 {
 		rm, split := c.queue[:n], c.queue[n:]
 		c.queue = split
-		c.source.UnqueueBuffers(rm)
-		al.DeleteBuffers(rm)
+		c.source.UnqueueBuffers(rm...)
+		al.DeleteBuffers(rm...)
 	}
 	for len(c.queue) < QUEUE {
 		b := al.GenBuffers(1)
@@ -114,7 +114,7 @@ func (c *Context) Play() {
 			binary.LittleEndian.PutUint16(buf[n:n+2], uint16(v))
 		}
 		b[0].BufferData(Fmt, buf, SampleRate)
-		c.source.QueueBuffers(b)
+		c.source.QueueBuffers(b...)
 		c.queue = append(c.queue, b...)
 	}
 	if c.source.State() != al.Playing {
@@ -126,8 +126,8 @@ func (c *Context) Close() {
 	c.Lock()
 	defer c.Unlock()
 	al.StopSources(c.source)
-	c.source.UnqueueBuffers(c.queue)
-	al.DeleteBuffers(c.queue)
+	c.source.UnqueueBuffers(c.queue...)
+	al.DeleteBuffers(c.queue...)
 	c.queue = nil
 	al.DeleteSources(c.source)
 }
