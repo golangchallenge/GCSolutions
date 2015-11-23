@@ -34,8 +34,8 @@ func InitializeSound(numKeys int) {
 	for j := 0; j < numKeys; j++ {
 		buffers[j].BufferData(al.FormatMono8, data, int32(100*(numKeys-j)))
 		secBuffers[j].BufferData(al.FormatMono8, data, 2*int32(100*(numKeys-j)))
-		sources[j].QueueBuffers(buffers[j : j+1])
-		secSources[j].QueueBuffers(buffers[j : j+1])
+		sources[j].QueueBuffers(buffers[j : j+1]...)
+		secSources[j].QueueBuffers(buffers[j : j+1]...)
 	}
 
 }
