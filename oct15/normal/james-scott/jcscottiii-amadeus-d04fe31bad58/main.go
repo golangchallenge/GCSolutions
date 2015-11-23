@@ -9,8 +9,8 @@ import (
 	"golang.org/x/mobile/exp/gl/glutil"
 	"golang.org/x/mobile/gl"
 
-	"bitbucket.org/jcscottiii/amadeus/layers"
-	"bitbucket.org/jcscottiii/amadeus/util"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/layers"
+	"github.com/golangchallenge/GCSolutions/oct15/normal/james-scott/jcscottiii-amadeus-d04fe31bad58/util"
 	"log"
 )
 
